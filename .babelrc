@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 Chrome versions"]
+        }
+      }
+    ],
+    "react"
+  ],
+  "plugins": [
+    "transform-async-to-generator",
+    ["transform-class-properties", { "spec": true }]
+  ]
+}

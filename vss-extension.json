@@ -1,0 +1,52 @@
+{
+  "manifestVersion": 1,
+  "id": "git-permissions-viewer",
+  "version": "0.0.4",
+  "name": "Git Permissions Viewer",
+  "description": "Git Permissions Viewer allows you to see who has what type of access to your project git repositories.",
+  "publisher": "kevinwu",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "icons": {
+    "default": "images/icons8-car.png"
+  },
+  "contributions": [
+    {
+      "id": "ucsb.kevinwu.gitPermissionsViewer",
+      "type": "ms.vss-web.hub",
+      "description": "Git Permission Viewer",
+      "targets": ["ms.vss-work-web.work-hub-group"],
+      "properties": {
+        "name": "Git Permissions",
+        "order": 99,
+        "uri": "index.html"
+      }
+    }
+  ],
+  "scopes": ["vso.code", "vso.project", "vso.identity"],
+  "files": [
+    {
+      "path": "index.html",
+      "addressable": true
+    },
+    {
+      "path": "styles.css",
+      "addressable": true
+    },
+    {
+      "path": "scripts",
+      "addressable": true
+    },
+    {
+      "path": "libs",
+      "addressable": true
+    },
+    {
+      "path": "images/icons8-car.png",
+      "addressable": true
+    }
+  ]
+}
