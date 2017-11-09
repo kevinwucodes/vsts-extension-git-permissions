@@ -25,6 +25,8 @@ npm run package
 
 ## TODOs
 * cache identity descriptors lookup due to massive network lookup required
+* after identity lookup, identities should be followed through to get identity metadata, e.g (
+https://app.vssps.visualstudio.com/xxxxxxx/_apis/Identities/xxxxxxxxx)
 * see TODOs sprinkled through code
 * logo needed for extension
 * add filterable by entityName
