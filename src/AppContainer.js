@@ -1,6 +1,9 @@
 import React from 'react'
 import { fetchData } from './fetchData'
+
 import Viewer from './Components/Viewer'
+import ErrorMessage from './Components/ErrorMessage'
+
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -24,23 +27,23 @@ class AppContainer extends React.Component {
           }
         })
       })
-      //master catch all errors here
       .catch(err => {
         this.setState((prevState, props) => {
           return {
             errors: err
           }
         })
-        console.error('something bad happened:', err)
+        console.error(err)
       })
   }
 
   render() {
-    const { gitPermissions, token } = this.state
+    const { gitPermissions, token, errors } = this.state
     return (
       <div>
-        <h4>Git permission viewer</h4>
+        <h1>Git permission viewer</h1>
         <Viewer gitPermissions={gitPermissions} />
+        <ErrorMessage message={errors} />
       </div>
     )
   }
