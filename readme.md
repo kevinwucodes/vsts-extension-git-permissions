@@ -2,10 +2,10 @@
 
 This is a VSTS extension that provides a view into who has what type of access in your project git repositories.
 
-The extension is located here: XXXXXXXXXXXX
+The extension is currently under private beta.
 
 ## Requirements
-* probably at least Node v8.7
+* a NodeJS runtime supporting async/await
 
 ## Build
 ```script
