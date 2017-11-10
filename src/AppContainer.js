@@ -4,15 +4,23 @@ import { fetchData } from './fetchData'
 import Viewer from './Components/Viewer'
 import ErrorMessage from './Components/ErrorMessage'
 
-
 class AppContainer extends React.Component {
   constructor(props) {
     super(props)
+
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   state = {
     gitPermissions: [],
-    errors: ''
+    errors: '',
+    entityName: ''
+  }
+
+  handleInputChange(e) {
+    this.setState({
+      entityName: e.target.value
+    })
   }
 
   componentDidMount() {
@@ -38,11 +46,18 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { gitPermissions, token, errors } = this.state
+    const { gitPermissions, errors, entityName } = this.state
     return (
       <div>
         <h1>Git permission viewer</h1>
-        <Viewer gitPermissions={gitPermissions} />
+        <input
+          type="text"
+          placeholder="entityName"
+          value={entityName}
+          onChange={this.handleInputChange}
+          size="60"
+        />
+        <Viewer gitPermissions={gitPermissions} entityFilter={entityName} />
         <ErrorMessage message={errors} />
       </div>
     )

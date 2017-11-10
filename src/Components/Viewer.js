@@ -1,11 +1,29 @@
 import React from 'react'
 
-const Viewer = ({ gitPermissions }) => {
-  const renderRepos = () => {
-    const perms = gitPermissions.map(part => {
-      const { repoPath, permissions } = part
+const Viewer = ({ gitPermissions, entityFilter }) => {
+  const renderRepos = entityFilter => {
+    const filteredPerms = gitPermissions
+      .map(part => {
+        const { permissions } = part
 
-      const entityPerms = permissions.map((part, permissionsIndex) => {
+        const filteredPermissions = permissions.filter(
+          perm =>
+            entityFilter
+              ? perm.entityName && perm.entityName.includes(entityFilter)
+              : true
+        )
+
+        return {
+          ...part,
+          filteredPermissions
+        }
+      })
+      .filter(part => part.filteredPermissions.length > 0)
+
+    const perms = filteredPerms.map(part => {
+      const { repoPath, filteredPermissions } = part
+
+      const entityPerms = filteredPermissions.map((part, permissionsIndex) => {
         const { entityName, allow } = part
 
         const entityAllowPerms = allow.map(part => part.name).join(', ')
@@ -32,7 +50,11 @@ const Viewer = ({ gitPermissions }) => {
 
   return (
     <div>
-      <div className="container">{renderRepos()}</div>
+      {gitPermissions.length > 0 ? (
+        <div className="container">{renderRepos(entityFilter)}</div>
+      ) : (
+        <div>Loading data or no Git Repos found...</div>
+      )}
     </div>
   )
 }

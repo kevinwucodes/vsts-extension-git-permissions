@@ -12,6 +12,7 @@
   ],
   "plugins": [
     "transform-async-to-generator",
-    ["transform-class-properties", { "spec": true }]
+    ["transform-class-properties", { "spec": true }],
+    "transform-object-rest-spread"
   ]
 }
