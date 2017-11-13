@@ -2,7 +2,7 @@ import loadApp from './app'
 
 VSS.init({
   explicitNotifyLoaded: true,
-  usePlatformScripts: true,
+  usePlatformScripts: true
   // usePlatformStyles: true
 })
 
