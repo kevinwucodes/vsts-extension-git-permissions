@@ -9,7 +9,7 @@ const loadApp = (VssAuthService, CoreRestClient, GitRestClient) => {
 
   ReactDOM.render(
     <AppContainer services={[VssAuthService, CoreRestClient, GitRestClient]} />,
-    document.getElementById('root')
+    document.getElementById('root-git-permissions')
   )
 }
 
