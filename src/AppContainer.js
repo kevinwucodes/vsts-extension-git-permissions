@@ -44,6 +44,10 @@ class AppContainer extends React.Component {
         })
         console.error(err)
       })
+      .finally(() => {
+        //TODO do we put notification here?  All this does is takes off the loading spinner and undims the app
+        VSS.notifyLoadSucceeded()
+      })
   }
 
   render() {

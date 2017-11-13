@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "git-permissions-viewer",
-  "version": "0.0.36",
+  "version": "0.0.39",
   "name": "Git Permissions Viewer",
   "description": "Git Permissions Viewer allows you to see who has what type of access to your project git repositories.",
   "publisher": "kevinwu",
