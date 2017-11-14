@@ -70,7 +70,7 @@ class AppContainer extends React.Component {
         <h1>Git permission viewer</h1>
         <input
           type="text"
-          placeholder="entityNameSearch"
+          placeholder="entity name filter"
           value={entityNameSearch}
           onChange={this.handleInputChange}
           size="60"
