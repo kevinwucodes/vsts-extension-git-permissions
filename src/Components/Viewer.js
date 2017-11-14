@@ -30,6 +30,15 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
           return true
         }
       })
+      .sort((a, b) => {
+        if (a.repoPath.toUpperCase() < b.repoPath.toUpperCase()) {
+          return -1
+        }
+        if (a.repoPath.toUpperCase() > b.repoPath.toUpperCase()) {
+          return 1
+        }
+        return 0
+      })
       .map(part => {
         const { repoPath, filteredPermissions } = part
 
