@@ -10,17 +10,25 @@ class AppContainer extends React.Component {
     super(props)
 
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleMasterBranchFilter = this.handleMasterBranchFilter.bind(this)
   }
 
   state = {
     gitPermissions: [],
     errors: '',
-    entityNameSearch: ''
+    entityNameSearch: '',
+    masterBranchFilter: true
   }
 
   handleInputChange(e) {
     this.setState({
       entityNameSearch: e.target.value
+    })
+  }
+
+  handleMasterBranchFilter(e) {
+    this.setState({
+      masterBranchFilter: e.target.checked
     })
   }
 
@@ -51,7 +59,12 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { gitPermissions, errors, entityNameSearch } = this.state
+    const {
+      gitPermissions,
+      errors,
+      entityNameSearch,
+      masterBranchFilter
+    } = this.state
     return (
       <div>
         <h1>Git permission viewer</h1>
@@ -62,7 +75,18 @@ class AppContainer extends React.Component {
           onChange={this.handleInputChange}
           size="60"
         />
-        <Viewer gitPermissions={gitPermissions} entityFilter={entityNameSearch} />
+        <span>
+          <input
+            type="checkbox"
+            checked={masterBranchFilter}
+            onChange={this.handleMasterBranchFilter}
+          />Filter on master branches only
+        </span>
+        <Viewer
+          gitPermissions={gitPermissions}
+          entityFilter={entityNameSearch}
+          masterBranchFilter={masterBranchFilter}
+        />
         <ErrorMessage message={errors} />
       </div>
     )

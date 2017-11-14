@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Viewer = ({ gitPermissions, entityFilter }) => {
+const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
   const renderRepos = entityFilter => {
     const perms = gitPermissions
       .map(part => {
@@ -16,6 +16,20 @@ const Viewer = ({ gitPermissions, entityFilter }) => {
         }
       })
       .filter(part => part.filteredPermissions.length > 0)
+      .filter(part => {
+        if (masterBranchFilter) {
+          if (!/\/refs\//.test(part.repoPath)) {
+            return true
+          } else if (
+            /\/refs\//.test(part.repoPath) &&
+            /\/refs\/heads\/master/.test(part.repoPath)
+          ) {
+            return true
+          }
+        } else {
+          return true
+        }
+      })
       .map(part => {
         const { repoPath, filteredPermissions } = part
 
