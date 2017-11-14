@@ -15,12 +15,12 @@ class AppContainer extends React.Component {
   state = {
     gitPermissions: [],
     errors: '',
-    entityName: ''
+    entityNameSearch: ''
   }
 
   handleInputChange(e) {
     this.setState({
-      entityName: e.target.value
+      entityNameSearch: e.target.value
     })
   }
 
@@ -51,18 +51,18 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { gitPermissions, errors, entityName } = this.state
+    const { gitPermissions, errors, entityNameSearch } = this.state
     return (
       <div>
         <h1>Git permission viewer</h1>
         <input
           type="text"
-          placeholder="entityName"
-          value={entityName}
+          placeholder="entityNameSearch"
+          value={entityNameSearch}
           onChange={this.handleInputChange}
           size="60"
         />
-        <Viewer gitPermissions={gitPermissions} entityFilter={entityName} />
+        <Viewer gitPermissions={gitPermissions} entityFilter={entityNameSearch} />
         <ErrorMessage message={errors} />
       </div>
     )
