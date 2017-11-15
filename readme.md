@@ -2,7 +2,7 @@
 
 This is a VSTS extension that provides a view into who has what type of access in your project git repositories.
 
-The extension is currently under private beta.
+The extension is currently under private beta and should work in most evergreen browsers.  Internet Explorer is not supported.
 
 ## Requirements
 * a NodeJS runtime supporting async/await
