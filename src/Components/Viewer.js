@@ -48,10 +48,10 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
 
             const entityAllowPerms = allow.map(part => part.name).join(', ')
             return (
-              <p key={permissionsIndex}>
+              <div key={permissionsIndex}>
                 <span className="entityName">{entityName}</span>:{' '}
                 <span className="italics">{entityAllowPerms}</span>
-              </p>
+              </div>
             )
           }
         )
