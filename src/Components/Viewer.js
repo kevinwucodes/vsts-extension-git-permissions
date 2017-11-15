@@ -69,10 +69,23 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
     return perms
   }
 
+  //define the height of the root container here because of overflow:auto requirements
+  //the main VSTS has overflow:hidden, which needs to be overridden with overflow:auto
+  //but overflow:auto requires a height established in order for it to work
+  // document.getElementById('permissions-container').style.height = `${document
+  //   .documentElement.clientHeight}px`
+
   return (
     <div>
       {gitPermissions.length > 0 ? (
-        <div className="container">{renderRepos(entityFilter)}</div>
+        <div
+          className="container"
+          style={{
+            height: `${document.documentElement.clientHeight}px`
+          }}
+        >
+          {renderRepos(entityFilter)}
+        </div>
       ) : (
         <div>Loading data or no Git Repos found...</div>
       )}
