@@ -118,7 +118,6 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
     const [fullRef, refName, refType, securable] = refTokenizer(ref) || []
 
     const repoPath = [
-      projectName,
       repoName,
       refName,
       refType,
