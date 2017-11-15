@@ -29,3 +29,4 @@ npm run package
 https://app.vssps.visualstudio.com/xxxxxxx/_apis/Identities/xxxxxxxxx)
 * see TODOs sprinkled through code
 * logo needed for extension
+* bug in the `document.documentElement.clientHeight` due to offset of VSTS header
