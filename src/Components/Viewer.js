@@ -78,14 +78,7 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
   return (
     <div>
       {gitPermissions.length > 0 ? (
-        <div
-          className="container"
-          style={{
-            height: `${document.documentElement.clientHeight}px`
-          }}
-        >
-          {renderRepos(entityFilter)}
-        </div>
+        <div className="container">{renderRepos(entityFilter)}</div>
       ) : (
         <div>Loading data or no Git Repos found...</div>
       )}
