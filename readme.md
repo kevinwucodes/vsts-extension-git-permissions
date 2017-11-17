@@ -6,6 +6,7 @@ The extension is currently under private beta and should work in most evergreen 
 
 ## Requirements
 * a NodeJS runtime supporting async/await
+* the `tfx-cli` runtime, which can be installed globally by running `npm install -g tfx-cli`
 
 ## Build
 ```script
