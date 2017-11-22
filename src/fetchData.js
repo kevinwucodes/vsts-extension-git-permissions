@@ -5,8 +5,6 @@ import {
 } from './utils/api'
 import {
   securityTokenRegex,
-  teamFoundationIdentityModelRegex,
-  identityModelRegex,
   refRegex
 } from './utils/regex'
 import { refSecurableToString, demasker, finding } from './utils/helpers'
@@ -15,29 +13,15 @@ const repoTokenizer = token => securityTokenRegex.exec(token)
 const refTokenizer = ref => refRegex.exec(ref)
 
 const descriptorToEntity = accountVsspsUri => bearerToken => async descriptor => {
-  if (teamFoundationIdentityModelRegex.test(descriptor)) {
-    const identity = await getIdentityFromDescriptor(accountVsspsUri)(
-      bearerToken
-    )(descriptor)
-    const { customDisplayName, providerDisplayName } = identity[0]
-    return {
-      entityId: descriptor,
-      entityName: customDisplayName || providerDisplayName
-    }
-  } else if (identityModelRegex.test(descriptor)) {
-    const [fullKey, prefix, entityId, email] = identityModelRegex.exec(
-      descriptor
-    )
-    return {
-      entityId,
-      entityName: email.replace(/\\/, '')
-    }
-  } else {
-    // must be a new use case we haven't isolated yet
-    return {
-      entityId: null,
-      entityName: null
-    }
+  const normalizedDescriptor = descriptor.replace(/\\\\/g, '\\')
+
+  const identity = await getIdentityFromDescriptor(accountVsspsUri)(
+    bearerToken
+  )(normalizedDescriptor)
+  const { customDisplayName, providerDisplayName } = identity[0]
+  return {
+    entityId: descriptor,
+    entityName: customDisplayName || providerDisplayName
   }
 }
 
