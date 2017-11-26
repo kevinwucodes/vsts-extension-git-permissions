@@ -1,5 +1,10 @@
 import axios from 'axios'
-import { restEndpoints } from '../../config'
+import { restEndpoints, IDENTITY_DESCRIPTOR_CACHE } from '../../config'
+
+//reinitialize request cache
+caches.delete(IDENTITY_DESCRIPTOR_CACHE).then(bool => {
+  console.log('IDENTITY_DESCRIPTOR_CACHE was reinitialized', bool)
+})
 
 const bearerTokenHeader = bearerToken => ({
   headers: {
@@ -54,12 +59,32 @@ const getRepoPermissions = accountInstanceUri => bearerToken => async guid => {
 const getIdentityFromDescriptor = accountVsspsUri => bearerToken => async descriptor => {
   const descriptorEndpoint = restEndpoints.identityDescriptor(descriptor)
   const url = `${accountVsspsUri}${descriptorEndpoint}`
-  //
-  const { data: { value: identity } } = await axios(
-    url,
-    bearerTokenHeader(bearerToken)
-  )
+
+  const headers = new Headers()
+  headers.append('Authorization', bearerToken)
+
+  const { value: identity } = await cacher(IDENTITY_DESCRIPTOR_CACHE, url, {
+    method: 'GET',
+    headers
+  })
+
   return identity
+}
+
+const cacher = async (cacheName, request, options) => {
+  const cache = await caches.open(cacheName)
+
+  const cachedRequest = await cache.match(request)
+
+  if (cachedRequest) {
+    return await cachedRequest.json()
+  } else {
+    const response = await fetch(request, options)
+
+    await cache.put(request, response.clone())
+
+    return await response.json()
+  }
 }
 
 export {

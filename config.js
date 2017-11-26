@@ -7,4 +7,7 @@ const restEndpoints = {
     `_apis/identities?api-version=4.0&descriptors=${descriptor}`
 }
 
-export { restEndpoints }
+const IDENTITY_DESCRIPTOR_CACHE =
+  'ucsb.kevinwu.gitPermissionsViewer-identity-descriptors'
+
+export { restEndpoints, IDENTITY_DESCRIPTOR_CACHE }

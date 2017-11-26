@@ -80,6 +80,20 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
   )
   // console.log('repoPermissions', repoPermissions)
 
+  //get all the identity descriptors from each repoPermissions' acesDictionary
+  const acesDictionary = repoPermissions
+    .map(perm => Object.keys(perm.acesDictionary))
+    .reduce((a, b) => a.concat(b), [])
+
+  const distinctAcesDictionary = [...new Set(acesDictionary)]
+
+  //build our identity descriptor cache
+  await Promise.all(
+    distinctAcesDictionary.map(descriptor =>
+      descriptorToEntity(accountVsspsUri)(bearerToken)(descriptor)
+    )
+  )
+
   const repoTokenToPath = token => {
     const [fullToken, repoV2, projectId, repoId, ref] =
       repoTokenizer(token) || []
