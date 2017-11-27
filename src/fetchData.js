@@ -111,7 +111,8 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
     const { name: projectName = 'unknownProject' } =
       finding(projectId)(projects) || {}
 
-    const { name: repoName = 'unknownRepo' } = finding(repoId)(repos) || {}
+    const repoObject = finding(repoId)(repos) || {}
+    const { name: repoName = 'unknownRepo' } = repoObject
 
     const [fullRef, refName, refType, securable] = refTokenizer(ref) || []
 
@@ -127,6 +128,7 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
       .join('/')
 
     return {
+      repoObject,
       repoPath,
       pathDescription: pathDescription()
     }
@@ -134,7 +136,10 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
 
   const includeMetadata = async perm => {
     //derive the repoPath from the repoToken
-    const { repoPath, pathDescription } = repoTokenToPath(perm.token)
+    const { repoObject, repoPath, pathDescription } = repoTokenToPath(
+      perm.token
+    )
+    perm.repoObject = repoObject
     perm.repoPath = repoPath
     perm.pathDescription = pathDescription
 

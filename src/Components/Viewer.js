@@ -40,7 +40,7 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
         return 0
       })
       .map(part => {
-        const { repoPath, filteredPermissions } = part
+        const { repoObject, repoPath, filteredPermissions } = part
 
         const entityPerms = filteredPermissions.map(
           (part, permissionsIndex) => {
@@ -58,7 +58,7 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
 
         return [
           <div className="item" key={repoPath}>
-            {repoPath}
+            <a href={repoObject.remoteUrl}>{repoPath}</a>
           </div>,
           <div className="item" key={entityPerms}>
             {entityPerms}
