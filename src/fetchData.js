@@ -3,10 +3,7 @@ import {
   getRepoPermissions,
   getIdentityFromDescriptor
 } from './utils/api'
-import {
-  securityTokenRegex,
-  refRegex
-} from './utils/regex'
+import { securityTokenRegex, refRegex } from './utils/regex'
 import { refSecurableToString, demasker, finding } from './utils/helpers'
 
 const repoTokenizer = token => securityTokenRegex.exec(token)
