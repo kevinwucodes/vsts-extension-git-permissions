@@ -54,8 +54,6 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
     'vssps.visualstudio'
   )
 
-  // console.log('getWebContext', VSS.getWebContext())
-
   //TODO: test failing awaits on axios on purposes to still render an error component
 
   const tokenObject = await VSS.getAccessToken()
