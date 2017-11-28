@@ -12,6 +12,15 @@ import { refSecurableToString, demasker, finding } from './utils/helpers'
 const repoTokenizer = token => securityTokenRegex.exec(token)
 const refTokenizer = ref => refRegex.exec(ref)
 
+const on = id => perm => {
+  const [fullToken, repoV2, projectId, repoId, ref] =
+    repoTokenizer(perm.token) || []
+
+  if (projectId && projectId === id) {
+    return true
+  }
+}
+
 const descriptorToEntity = accountVsspsUri => bearerToken => async descriptor => {
   const normalizedDescriptor = descriptor.replace(/\\\\/g, '\\')
 
@@ -164,15 +173,6 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
     )
 
     return perm
-  }
-
-  const on = id => perm => {
-    const [fullToken, repoV2, projectId, repoId, ref] =
-      repoTokenizer(perm.token) || []
-
-    if (projectId && projectId === id) {
-      return true
-    }
   }
 
   const promises = repoPermissions.filter(on(projectId)).map(includeMetadata)
