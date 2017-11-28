@@ -42,19 +42,29 @@ const Viewer = ({ gitPermissions, entityFilter, masterBranchFilter }) => {
       .map(part => {
         const { repoObject, repoPath, filteredPermissions } = part
 
-        const entityPerms = filteredPermissions.map(
-          (part, permissionsIndex) => {
-            const { entityName, allow } = part
+        const entityPerms = filteredPermissions.map((part, index) => {
+          const { entityName, identity, allow } = part
 
-            const entityAllowPerms = allow.map(part => part.name).join(', ')
-            return (
-              <div key={permissionsIndex}>
-                <span className="entityName">{entityName}</span>:{' '}
-                <span className="italics">{entityAllowPerms}</span>
-              </div>
-            )
-          }
-        )
+          const entityAllowPerms = allow.map(part => part.name).join(', ')
+          return (
+            <div key={index}>
+              {identity.imageUrl ? (
+                <img
+                  src={identity.imageUrl}
+                  alt={identity.displayName}
+                  title={identity.displayName}
+                />
+              ) : (
+                <span>
+                  <span className="entityName span-top">{entityName}</span>
+                  :{' '}
+                </span>
+              )}
+
+              <span className="italics span-top">{entityAllowPerms}</span>
+            </div>
+          )
+        })
 
         return [
           <div className="item" key={repoPath}>

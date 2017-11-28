@@ -24,9 +24,10 @@ const descriptorToEntity = accountVsspsUri => bearerToken => async descriptor =>
   const identity = await getIdentityFromDescriptor(accountVsspsUri)(
     bearerToken
   )(normalizedDescriptor)
-  const { customDisplayName, providerDisplayName } = identity[0]
+  const { id, customDisplayName, providerDisplayName } = identity[0]
   return {
-    entityId: descriptor,
+    id,
+    descriptor,
     entityName: customDisplayName || providerDisplayName
   }
 }
@@ -160,10 +161,19 @@ const fetchData = async (VssAuthService, CoreRestClient, GitRestClient) => {
           descriptor
         )
 
+        const identity = finding(entity.id)(teamMembers)
+
         const allow = demasker(allowBitmask)(gitSecurityNamespaces[0].actions)
         const deny = demasker(denyBitmask)(gitSecurityNamespaces[0].actions)
 
-        return Object.assign({}, entity, { allow, deny })
+        return {
+          ...entity,
+          identity: {
+            ...identity
+          },
+          allow,
+          deny
+        }
       })
     )
 

@@ -7,9 +7,13 @@
 }
 
 .entityName {
-  background-color: turquoise
+  font-weight: bold;
 }
 
 .italics {
   font-style: italic;
+}
+
+.span-top {
+  vertical-align: top;
 }
