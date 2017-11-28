@@ -18,7 +18,7 @@
       "id": "ucsb.kevinwu.gitPermissionsViewer",
       "type": "ms.vss-web.hub",
       "description": "Git Permission Viewer",
-      "targets": ["ms.vss-work-web.work-hub-group"],
+      "targets": ["ms.vss-code-web.code-hub-group"],
       "properties": {
         "name": "Git Permissions",
         "order": 99,
